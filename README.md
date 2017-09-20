@@ -5,14 +5,14 @@ Setup consists of:
 ## Compiling
 Running the application requires compiling it. To compile the client-side stylesheets, use
 
-```npm run stylesheets```.
+```yarn css```.
 
 ## Running locally
 
 To run the application, use the watchers. For the server
 
-```npm run server``` (requires `nodemon` to be globally installed)
+```yarn be``` (requires `nodemon` to be globally installed)
 
 for the client
 
-```npm run webpack```.
+```yarn fe```.
