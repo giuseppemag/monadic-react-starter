@@ -15,23 +15,11 @@ import * as MonadicReact from 'monadic_react'
 import {my_page} from './my_page'
 
 export function HomePage(slug:string) : JSX.Element {
-
-  // let edit_toggle_route = () : Route<{}> => ({
-  //   url: make_url<{}, never>(["my_page"]),
-  //   page:_ => my_page
-  //   })
-  //   application("edit", window.location.href.replace(slug, ""), slug,
-  //   () => Promise.resolve(
-  //   [
-  //     edit_toggle_route()
-  //   ]))
-
-
   return <div>
       {
         <div className="component">
           {
-            MonadicReact.simple_application(my_page, x => { console.log(`Done with ${JSON.stringify(x)}`) })
+            MonadicReact.simple_application(my_page, x => { console.log(`The component notifies ${JSON.stringify(x)}`) })
           }
         </div>
       }
@@ -39,19 +27,8 @@ export function HomePage(slug:string) : JSX.Element {
 }
 
 export let HomePage_to = (slug:string, target_element_id:string, ) => {
-  (async() => {
-    let res = await fetch(`/translations.json`, { method: 'get', credentials: 'include', headers:{'content-type': 'application/json'} })
-    let resources = await res.json()
-    i18next.init({
-      lng:  "nl",
-      fallbackLng: "en",
-      ns: ["common","HomePage","Course","Lecture"],
-      resources: resources
-    }, (err, t) => {
-      ReactDOM.render(
-        HomePage(slug),
-        document.getElementById(target_element_id)
-      )
-    })
-  })()
+  ReactDOM.render(
+    HomePage(slug),
+    document.getElementById(target_element_id)
+  )
 }
