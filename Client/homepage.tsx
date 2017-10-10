@@ -18,14 +18,19 @@ import {monadic} from './monadic'
 
 export function HomePage(slug:string) : JSX.Element {
   return <div>
-      {
-        <div className="component">
+        <div className="left" style={ {position:"absolute", left:"0%", top:"0px", width:"33%"} }>
+          <h2>Dynamically typed:</h2>
           <Untyped.Sample />
-          {/* <Typed.Sample />
-          { MonadicReact.simple_application(monadic, x => { console.log(`The component notifies ${JSON.stringify(x)}`) }) } */}
         </div>
-      }
-  </div>
+        <div className="left" style={ {position:"absolute", left:"33%", top:"0px", width:"34%"} }>
+          <h2>Statically typed:</h2>
+          <Typed.Sample />
+        </div>
+        <div className="left" style={ {position:"absolute", left:"67%", top:"0px", width:"33%"} }>
+          <h2>Monadic:</h2>
+          { MonadicReact.simple_application(monadic, x => { console.log(`The component notifies ${JSON.stringify(x)}`) }) }
+        </div>
+      </div>
 }
 
 export let HomePage_to = (slug:string, target_element_id:string, ) => {

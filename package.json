@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "express": "^4.15.4",
-    "monadic_react": "^1.0.54"
+    "monadic_react": "^1.0.54",
+    "prop-types": "^15.6.0"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.1.2",
