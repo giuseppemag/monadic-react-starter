@@ -11,7 +11,7 @@ Running the application requires compiling it. To compile the client-side styles
 
 To run the application, use the watchers. For the server
 
-```yarn be``` (requires `nodemon` to be globally installed)
+```yarn be```
 
 for the client
 

@@ -1,5 +1,7 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
+import * as Untyped from "./untyped"
+import * as Typed from "./typed"
 import {List, Map, Set, Range} from "immutable"
 import * as Immutable from "immutable"
 import * as Moment from 'moment'
@@ -12,15 +14,15 @@ simple_menu, mk_menu_entry, mk_submenu_entry, MenuEntry, MenuEntryValue, MenuEnt
 rich_text, paginate, Page, list, editable_list} from 'monadic_react'
 
 import * as MonadicReact from 'monadic_react'
-import {my_page} from './my_page'
+import {monadic} from './monadic'
 
 export function HomePage(slug:string) : JSX.Element {
   return <div>
       {
         <div className="component">
-          {
-            MonadicReact.simple_application(my_page, x => { console.log(`The component notifies ${JSON.stringify(x)}`) })
-          }
+          <Untyped.Sample />
+          {/* <Typed.Sample />
+          { MonadicReact.simple_application(monadic, x => { console.log(`The component notifies ${JSON.stringify(x)}`) }) } */}
         </div>
       }
   </div>

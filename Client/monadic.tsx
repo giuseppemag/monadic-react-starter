@@ -12,13 +12,64 @@ simple_menu, mk_menu_entry, mk_submenu_entry, MenuEntry, MenuEntryValue, MenuEnt
 rich_text, paginate, Page, list, editable_list} from 'monadic_react'
 import * as MonadicReact from 'monadic_react'
 
+export type Counter = { counter:number }
+export type TwoCounters = { counter1:Counter, counter2:Counter }
 
-export type Mode = "edit" | "view"
-export type EditToggleState = { mode:Mode, text:string }
+let counter : (_:string) => (_:Counter) => C<Counter> = k =>
+  repeat<Counter>(k)(
+    any<Counter, Counter>("counter_any")([
+        c => string("view")(`Hello world, ${c.counter} times.`).never(),
+        retract<Counter, number>("counter_retract")(c => c.counter, c => cnt => ({...c, counter:cnt}),
+        n => button<number>("+1")(n + 1))
+    ])
+  )
 
-export type TwoStrings = { text1:string, text2:string }
+export let monadic =
+  repeat<TwoCounters>("two_counters_repeater")(
+    any<TwoCounters, TwoCounters>("two_counters_any")([
+      retract<TwoCounters, Counter>("counter1-retract")(tc => tc.counter1, tc => c => ({...tc, counter1:c}), counter("counter1")),
+      retract<TwoCounters, Counter>("counter2-retract")(tc => tc.counter2, tc => c => ({...tc, counter2:c}), counter("counter2"))
+    ])
+  )({ counter1:{ counter:0 }, counter2:{ counter:0 } })
 
-export let my_page =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // export type Mode = "edit" | "view"
+  // export type EditToggleState = { mode:Mode, text:string }
+
+  // export type TwoStrings = { text1:string, text2:string }
+
+  // repeat<TwoStrings>("my_page_repeater")(
+  //   any<TwoStrings, TwoStrings>("my_page_any")([
+  //     retract<TwoStrings, string>("AAAAAH")(ts => ts.text1, ts => s => ({...ts, text1:s}),
+  //       string("edit", "text", "my_page_string1")),
+  //     retract<TwoStrings, string>("BBBBBH")(ts => ts.text2, ts => s => ({...ts, text2:s}),
+  //       string("edit", "text", "my_page_string2"))
+  //   ])
+  //   )({text1:"Hello world", text2:"!!!!"})
+
   // string("view", "text", "my_page")("Hello world!")
 
   // string("view", "text")("Hello world!").never("my page string")
@@ -64,20 +115,21 @@ export let my_page =
   //   ])
   // )({ text1: "Hello world", text2:"Andrea is a bit fag"})
 
-  lift_promise<void, EditToggleState>(_ => Promise.resolve<EditToggleState>({ mode:"edit", text:"This comes from the big fat internet" }), "semi exponential")(null)
-  .then("my page form", initial_state =>
-  repeat<EditToggleState>("edit toggle sample")(
-    any<EditToggleState, EditToggleState>()([
-    retract<EditToggleState, Mode>()(s => s.mode, s => m => ({...s, mode:m}),
-      mode => button<Mode>(`${mode == "view" ? "Edit" : "View"}`)(mode == "view" ? "edit" : "view")
-    ),
-    state =>
-      retract<EditToggleState, string>()(s => s.text, s => t => ({...s, text:t}),
-        // rich_text(state.mode)
-        string(state.mode) //.filter(s => s.length < 10)
-      )(state)
-    ])
-  )(initial_state).map(ts => ts.text, "edit toggle sample map")).then(undefined,
-  delay<string>(5000)(
-    s => lift_promise<string, void>(s => Promise.resolve(console.log(`Saved ${s}`)), "semi exponential")(s).ignore_with(s))
-  )
+  // lift_promise<void, EditToggleState>(_ => Promise.resolve<EditToggleState>({ mode:"edit", text:"This comes from the big fat internet" }),
+  //  "semi exponential")(null)
+  // .then("my page form", initial_state =>
+  // repeat<EditToggleState>("edit toggle sample")(
+  //   any<EditToggleState, EditToggleState>()([
+  //   retract<EditToggleState, Mode>()(s => s.mode, s => m => ({...s, mode:m}),
+  //     mode => button<Mode>(`${mode == "view" ? "Edit" : "View"}`)(mode == "view" ? "edit" : "view")
+  //   ),
+  //   state =>
+  //     retract<EditToggleState, string>()(s => s.text, s => t => ({...s, text:t}),
+  //       // rich_text(state.mode)
+  //       string(state.mode) //.filter(s => s.length < 10)
+  //     )(state)
+  //   ])
+  // )(initial_state).map(ts => ts.text, "edit toggle sample map")).then(undefined,
+  // delay<string>(5000)(
+  //   s => lift_promise<string, void>(s => Promise.resolve(console.log(`Saved ${s}`)), "semi exponential")(s).ignore_with(s))
+  // )

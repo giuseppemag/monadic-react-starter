@@ -8,11 +8,14 @@
         "noImplicitAny": false,
         "module": "commonjs",
         "target": "es6",
-        "jsx": "react"
+        "jsx": "react",
+        "allowJs": true,
+        "checkJs": true
     },
      "include": [
       "./Client/**/*.ts",
-      "./Client/**/*.tsx"
+      "./Client/**/*.tsx",
+      "./Client/**/*.jsx"
     ],
    "exclude": [
       "/**/node_modules/*"
