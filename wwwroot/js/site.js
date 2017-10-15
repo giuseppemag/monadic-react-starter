@@ -46065,10 +46065,10 @@ __export(__webpack_require__(383));
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const monadic_react_1 = __webpack_require__(353);
-let counter = k => monadic_react_1.repeat(k)(monadic_react_1.any("counter_any")([
+let counter = k => monadic_react_1.any("counter_any")([
     c => monadic_react_1.string("view")(`Hello world, ${c.counter} times.`).never("counter_never"),
     monadic_react_1.retract("counter_retract")(c => c.counter, c => cnt => (Object.assign({}, c, { counter: cnt })), n => monadic_react_1.button("+1")(n + 1))
-]));
+]);
 exports.monadic = monadic_react_1.repeat("two_counters_repeater")(monadic_react_1.any("two_counters_any")([
     monadic_react_1.retract("counter1-retract")(tc => tc.counter1, tc => c => (Object.assign({}, tc, { counter1: c })), counter("counter1")),
     monadic_react_1.retract("counter2-retract")(tc => tc.counter2, tc => c => (Object.assign({}, tc, { counter2: c })), counter("counter2"))

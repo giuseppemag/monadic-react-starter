@@ -16,13 +16,11 @@ export type Counter = { counter:number }
 export type TwoCounters = { counter1:Counter, counter2:Counter }
 
 let counter : (_:string) => (_:Counter) => C<Counter> = k =>
-  repeat<Counter>(k)(
-    any<Counter, Counter>("counter_any")([
-        c => string("view")(`Hello world, ${c.counter} times.`).never("counter_never"),
-        retract<Counter, number>("counter_retract")(c => c.counter, c => cnt => ({...c, counter:cnt}),
-        n => button<number>("+1")(n + 1))
-    ])
-  )
+  any<Counter, Counter>("counter_any")([
+      c => string("view")(`Hello world, ${c.counter} times.`).never("counter_never"),
+      retract<Counter, number>("counter_retract")(c => c.counter, c => cnt => ({...c, counter:cnt}),
+      n => button<number>("+1")(n + 1))
+  ])
 
 export let monadic =
   repeat<TwoCounters>("two_counters_repeater")(
